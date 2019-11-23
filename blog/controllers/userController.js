@@ -16,27 +16,6 @@ module.exports.getOne = (req, res, next) => {
             next(err);
         });
 }
-/*
-module.exports.getAll = (req, res, next) => {
-    var perPage = Number(req.query.size) || 10,
-        page = req.query.page > 0 ? req.query.page : 0;
-
-    var sortProperty = req.query.sortby || "createdAt",
-        sort = req.query.sort || "desc";
-
-    debug("User List",{size:perPage,page, sortby:sortProperty,sort});
-
-    User.find({}, "-password -login_count")
-        .limit(perPage)
-        .skip(perPage * page)
-        .sort({ [sortProperty]: sort})
-        .then((users) => {
-           return res.status(200).json(users)
-        }).catch(err => {
-            next(err);
-        })
-
-}*/
 
 module.exports.getAll = (req,res,next) => {
 
@@ -47,7 +26,7 @@ module.exports.getAll = (req,res,next) => {
 
     debug("User List", {size: perPage, page, sortby:sortProperty,sort});
 
-    User.find({}, "-password -login_count -__v")
+    User.find({}, "-password -login_count")
         .limit(perPage)
         .skip(perPage*page)
         .sort({ [sortProperty]: sort})
@@ -72,7 +51,7 @@ module.exports.register = (req, res, next) => {
             } else {
                 let newUser = new User({
                     username: req.body.username,
-                    first_name: req.body.firts_name || "",
+                    first_name: req.body.first_name || "",
                     last_name: req.body.last_name || "",
                     email: req.body.email,
                     password: req.body.password /*TODO: Modificar, hacer hash del password*/
