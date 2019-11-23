@@ -8,7 +8,8 @@ var mongoose = require('mongoose');
 var debug = require('debug')('blog:database');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var userRouter = require('./routes/user');
+//var usersRouter = require('./routes/users');
 
 mongoose.connect(process.env.MONGO_URI,{
   useCreateIndex: true,
@@ -42,7 +43,7 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
